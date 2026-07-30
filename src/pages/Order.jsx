@@ -78,7 +78,6 @@ export default function Order() {
               <option>მწვადი</option>
               <option>იმერული ხაჭაპური</option>
               <option>ლობიანი</option>
-              <option>ჩაქაფული</option>
               <option>საცივი</option>
             </select>
 
