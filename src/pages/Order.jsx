@@ -5,25 +5,36 @@ export default function Order() {
 
   const formRef = useRef();
 
-  const sendEmail = (e) => {
-    e.preventDefault();
+const sendEmail = async (e) => {
+  e.preventDefault();
 
-    emailjs
-      .sendForm(
-        "service_ot9takj",
-        "template_b21pjmt",
-        formRef.current,
-        "atflFMvAXuRFrJ9Kl"
-      )
-      .then(() => {
-        alert("✅ შეკვეთა წარმატებით გაიგზავნა!");
-        e.target.reset();
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("❌ შეცდომა");
-      });
-  };
+  const form = formRef.current;
+
+  try {
+    // შენთან შეკვეთის გაგზავნა
+    await emailjs.sendForm(
+      "service_ot9takj",
+      "template_ki6zq44",
+      form,
+      "atflFMvAXuRFrJ9Kl"
+    );
+
+    // მომხმარებელთან დადასტურების გაგზავნა
+    await emailjs.sendForm(
+      "service_ot9takj",
+      "template_b21pjmt",
+      form,
+      "atflFMvAXuRFrJ9Kl"
+    );
+
+    alert("✅ შეკვეთა წარმატებით გაიგზავნა!");
+    form.reset();
+
+  } catch (err) {
+    console.log(err);
+    alert("❌ შეცდომა გაგზავნისას");
+  }
+};
 
 
   return (
@@ -62,6 +73,15 @@ export default function Order() {
               type="tel"
               name="phone"
               placeholder="📞 ტელეფონის ნომერი"
+              className="w-full p-4 rounded-xl border border-gray-300"
+              required
+            />
+
+
+            <input
+              type="email"
+              name="email"
+              placeholder="📧 თქვენი ელფოსტა"
               className="w-full p-4 rounded-xl border border-gray-300"
               required
             />
